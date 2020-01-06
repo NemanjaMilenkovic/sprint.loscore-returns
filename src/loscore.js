@@ -70,16 +70,34 @@ class LoScore {
     });
 
     return accumulator;
-
-    // 1.  `_.reduce` - reduces a collection to a single value by repetitively
-    // calling the `iterator(accumulator, item)` for each item. The accumulator should be the return
-    // value of the previous iterator call.
-
-    // If no starting value is passed, the first element in the collection should be used as the accumulator.
   }
 
-  every() {
-    // YOUR CODE HERE
+  every(collection, callback) {
+    // return this.reduce(collection, function(result) {
+    //   if (result && callback) {
+    //     return true;
+    //   } else {
+    //     return false;
+    //   }
+    // });
+
+    if (callback === undefined) return true;
+    let flag = true;
+    this.reduce(collection, function(acc, input) {
+      if (!callback(input)) {
+        flag = false;
+      }
+    });
+    return flag;
+
+    // if(this.reduce(collection, function(input) {
+    //   callback(input)
+    // }))
+
+    /*
+`_.every` - determines if all the elements pass the given truth test. 
+Returns a boolean, takes in a callback (the test). It should use `_.reduce`.
+*/
   }
 
   /**
