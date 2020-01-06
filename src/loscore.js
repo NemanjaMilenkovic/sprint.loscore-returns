@@ -60,7 +60,22 @@ class LoScore {
   }
 
   reduce(collection, iterator, accumulator) {
-    // YOUR CODE HERE
+    this.each(collection, function(value, index, collection) {
+      if (accumulator === undefined) {
+        accumulator = collection[0];
+        iterator(collection[1], value);
+      } else {
+        accumulator = iterator(accumulator, value);
+      }
+    });
+
+    return accumulator;
+
+    // 1.  `_.reduce` - reduces a collection to a single value by repetitively
+    // calling the `iterator(accumulator, item)` for each item. The accumulator should be the return
+    // value of the previous iterator call.
+
+    // If no starting value is passed, the first element in the collection should be used as the accumulator.
   }
 
   every() {
