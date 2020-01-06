@@ -100,8 +100,21 @@ class LoScore {
   |~~~~~~~~~~
   * */
 
+  // These are function decorators. Function decorators take a function and return a
+  //  new version of that function that works just a little bit differently.
+
   once(func) {
-    // YOUR CODE HERE
+    let isCalled = false;
+    let answer = function() {
+      if (!isCalled) {
+        answer = func();
+        isCalled = true;
+        return answer;
+      } else {
+        return answer;
+      }
+    };
+    return answer;
   }
 
   memoize(func) {
