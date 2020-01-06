@@ -100,9 +100,6 @@ class LoScore {
   |~~~~~~~~~~
   * */
 
-  // These are function decorators. Function decorators take a function and return a
-  //  new version of that function that works just a little bit differently.
-
   once(func) {
     let isCalled = false;
     let answer = function() {
@@ -118,11 +115,30 @@ class LoScore {
   }
 
   memoize(func) {
-    // YOUR CODE HERE
+    // couldn't solve in time without checking my precourse code
+    let newFunc = {};
+    return function() {
+      if (newFunc[JSON.stringify(arguments)] == undefined) {
+        let key = JSON.stringify(arguments);
+        let value = func.apply(this, arguments);
+        newFunc[key] = value;
+
+        return value;
+      }
+    };
   }
 
   invoke(collection, functionOrKey) {
-    // YOUR CODE HERE
+    // couldn't solve in time without checking my precourse code
+    if (typeof functionOrKey == "function") {
+      return this.map(collection, (value) => {
+        return functionOrKey.apply(value);
+      });
+    } else if (typeof functionOrKey == "string") {
+      return this.map(collection, (value) => {
+        return value[functionOrKey].apply(value);
+      });
+    }
   }
 
   /**
