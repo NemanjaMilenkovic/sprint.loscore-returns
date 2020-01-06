@@ -487,7 +487,7 @@ describe("LoScore", () => {
       });
     });
 
-    describe.only("every", () => {
+    describe("every", () => {
       beforeEach(() => {
         spy(_, "reduce");
       });
@@ -548,7 +548,7 @@ describe("LoScore", () => {
     afterEach(() => {
       releaseSpies();
     });
-    describe("extend", () => {
+    describe.only("extend", () => {
       beforeEach(() => {
         spy(_, "each");
       });

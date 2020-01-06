@@ -68,44 +68,31 @@ class LoScore {
         accumulator = iterator(accumulator, value);
       }
     });
-
     return accumulator;
   }
 
   every(collection, callback) {
-    // return this.reduce(collection, function(result) {
-    //   if (result && callback) {
-    //     return true;
-    //   } else {
-    //     return false;
-    //   }
-    // });
-
     if (callback === undefined) return true;
-    let flag = true;
+    let flag = true; //Try implemeting flag into the reduce function.
     this.reduce(collection, function(acc, input) {
       if (!callback(input)) {
         flag = false;
       }
     });
     return flag;
-
-    // if(this.reduce(collection, function(input) {
-    //   callback(input)
-    // }))
-
-    /*
-`_.every` - determines if all the elements pass the given truth test. 
-Returns a boolean, takes in a callback (the test). It should use `_.reduce`.
-*/
   }
 
   /**
   | OBJECTS
   |~~~~~~~~~~
   * */
-  extend(obj) {
-    // YOUR CODE HERE
+  extend(obj, ...args) {
+    this.each(args, function(element) {
+      LoScore.prototype.each(element, function(value, key) {
+        obj[key] = value;
+      });
+    });
+    return obj;
   }
 
   /**
