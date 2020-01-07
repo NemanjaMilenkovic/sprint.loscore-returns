@@ -54,8 +54,8 @@ class LoScore {
   }
 
   reject(collection, test) {
-    return this.filter(collection, function() {
-      return !test.apply(this, arguments);
+    return this.filter(collection, function(args) {
+      return !test.apply(this, args);
     });
   }
 
@@ -73,13 +73,13 @@ class LoScore {
 
   every(collection, callback) {
     if (callback === undefined) return true;
-    let flag = true; //Try implemeting flag into the reduce function.
-    this.reduce(collection, (_acc, input) => {
-      if (!callback(input)) {
-        flag = false;
-      }
-    });
-    return flag;
+    return this.reduce(
+      collection,
+      (acc, input) => {
+        return Boolean(callback(input) && acc);
+      },
+      true
+    );
   }
 
   /**
@@ -116,10 +116,10 @@ class LoScore {
   memoize(func) {
     // couldn't solve in time without checking my precourse code
     const newFunc = {};
-    return function() {
-      if (newFunc[JSON.stringify(arguments)] == undefined) {
-        const key = JSON.stringify(arguments);
-        const value = func.apply(this, arguments);
+    return function(args) {
+      if (newFunc[JSON.stringify(args)] === undefined) {
+        const key = JSON.stringify(args);
+        const value = func.apply(this, args);
         newFunc[key] = value;
 
         return value;
