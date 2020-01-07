@@ -54,8 +54,8 @@ class LoScore {
   }
 
   reject(collection, test) {
-    return this.filter(collection, function(args) {
-      return !test.apply(this, args);
+    return this.filter(collection, (args) => {
+      return !test(args);
     });
   }
 
@@ -119,7 +119,7 @@ class LoScore {
     return function(args) {
       if (newFunc[JSON.stringify(args)] === undefined) {
         const key = JSON.stringify(args);
-        const value = func.apply(this, args);
+        const value = func(args);
         newFunc[key] = value;
 
         return value;
