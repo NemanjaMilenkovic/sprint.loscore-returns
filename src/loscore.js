@@ -60,7 +60,7 @@ class LoScore {
   }
 
   reduce(collection, iterator, accumulator) {
-    this.each(collection, function(value, index, collection) {
+    this.each(collection, (value, _index, collection) => {
       if (accumulator === undefined) {
         accumulator = collection[0];
         iterator(collection[1], value);
@@ -74,7 +74,7 @@ class LoScore {
   every(collection, callback) {
     if (callback === undefined) return true;
     let flag = true; //Try implemeting flag into the reduce function.
-    this.reduce(collection, function(acc, input) {
+    this.reduce(collection, (_acc, input) => {
       if (!callback(input)) {
         flag = false;
       }
@@ -87,8 +87,8 @@ class LoScore {
   |~~~~~~~~~~
   * */
   extend(obj, ...args) {
-    this.each(args, function(element) {
-      LoScore.prototype.each(element, function(value, key) {
+    this.each(args, (element) => {
+      LoScore.prototype.each(element, (value, key) => {
         obj[key] = value;
       });
     });
@@ -107,20 +107,19 @@ class LoScore {
         answer = func();
         isCalled = true;
         return answer;
-      } else {
-        return answer;
       }
+      return answer;
     };
     return answer;
   }
 
   memoize(func) {
     // couldn't solve in time without checking my precourse code
-    let newFunc = {};
+    const newFunc = {};
     return function() {
       if (newFunc[JSON.stringify(arguments)] == undefined) {
-        let key = JSON.stringify(arguments);
-        let value = func.apply(this, arguments);
+        const key = JSON.stringify(arguments);
+        const value = func.apply(this, arguments);
         newFunc[key] = value;
 
         return value;
